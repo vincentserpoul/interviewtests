@@ -1,0 +1,6 @@
+Question:  Given a sequence of positive integers X and an integer soughtSum, return whether there is a *continuous #sequence* of X that sums up to exactly soughtSum
+{2000, 5, 4, 7, 2, 12}, 21. Return True because 7 + 2 + 11 = 20
+{1, 5, 4, 23, 2}, 8. Return True  because 5 + 4 = 9
+{2, 56, 5, 3, 2}, 1 Return False because no sequence in this array adds up to 1
+best solution: O(N)
+obvious solution: o(n^2)
