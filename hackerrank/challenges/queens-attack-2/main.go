@@ -38,14 +38,16 @@ func getInputArray() (boardSize int, queenPos Coords, obstaclesPos []Coords) {
 func GetAvailBoxes(boardSize int, queenPos Coords, obstacles []Coords) (totalAvailBoxes int) {
 
 	top := Coords{X: queenPos.X, Y: boardSize - 1}
-	topRight := Coords{X: queenPos.X + int(math.Min(float64(boardSize-1-queenPos.Y), float64(boardSize-1-queenPos.X))), Y: boardSize - 1}
+	topRight := Coords{X: queenPos.X + int(math.Min(float64(boardSize-1-queenPos.X), float64(boardSize-1-queenPos.Y))), Y: queenPos.Y + int(math.Min(float64(boardSize-1-queenPos.X), float64(boardSize-1-queenPos.Y)))}
 	right := Coords{X: boardSize - 1, Y: queenPos.Y}
 	bottomRight := Coords{X: queenPos.X + int(math.Min(float64(queenPos.Y), float64(boardSize-1-queenPos.X))), Y: queenPos.Y - int(math.Min(float64(queenPos.Y), float64(boardSize-1-queenPos.X)))}
 	bottom := Coords{X: queenPos.X, Y: 0}
 	bottomLeft := Coords{X: queenPos.X - int(math.Min(float64(queenPos.Y), float64(queenPos.X))), Y: queenPos.Y - int(math.Min(float64(queenPos.Y), float64(queenPos.X)))}
 	left := Coords{X: 0, Y: queenPos.Y}
-	topLeft := Coords{X: queenPos.X - int(math.Min(float64(boardSize-1-queenPos.Y), float64(queenPos.X))), Y: boardSize - 1}
+	topLeft := Coords{X: queenPos.X - int(math.Min(float64(boardSize-1-queenPos.Y), float64(queenPos.X))), Y: queenPos.Y + int(math.Min(float64(boardSize-1-queenPos.Y), float64(queenPos.X)))}
 	extremes := []Coords{top, topRight, right, bottomRight, bottom, bottomLeft, left, topLeft}
+
+	// fmt.Println(queenPos, extremes)
 
 	// For each of the 8 directions from the queen
 	for _, extremePos := range extremes {
@@ -56,6 +58,7 @@ func GetAvailBoxes(boardSize int, queenPos Coords, obstacles []Coords) (totalAva
 		// default number of boxes available (= vector norm)
 		currBoxesAvail := normQEVect
 
+		// fmt.Printf("%d, %d boxes available ", i, currBoxesAvail)
 		// For each obstacle
 		for _, obstaclePos := range obstacles {
 			// Is it colinear?
@@ -73,10 +76,12 @@ func GetAvailBoxes(boardSize int, queenPos Coords, obstacles []Coords) (totalAva
 					if obsBoxesAvail < currBoxesAvail {
 						currBoxesAvail = obsBoxesAvail
 					}
+					// fmt.Printf(" but found obstacle %v, reducing boxes to %d", obstaclePos, currBoxesAvail)
 				}
 			}
 		}
 
+		// fmt.Println()
 		totalAvailBoxes += int(currBoxesAvail)
 	}
 
