@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+mod find_median_from_data_stream;
 mod largest_rectangle_in_histogram;
 mod logger_rate_limiter;
 mod minimum_window_substring;
