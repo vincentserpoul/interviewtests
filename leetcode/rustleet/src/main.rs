@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+mod count_of_smaller_numbers_after_self;
 mod decode_string;
 mod design_hit_counter;
 mod find_median_from_data_stream;
